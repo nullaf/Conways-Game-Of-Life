@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import Button from "@material-ui/core/Button";
 
 const numRows = Math.round((window.screen.availHeight - 36) / 25);
-const numCols = Math.round((window.screen.availWidth) / 21);
+const numCols = Math.round(window.screen.availWidth / 21);
 
 const operations = [
   [0, 1],
@@ -28,13 +28,12 @@ const generateEmptyGrid = () => {
 const generateRandomGrid = () => {
   const rows = [];
   for (let i = 0; i < numRows; i++) {
-    rows.push(Array.from(Array(numCols), () => (Math.random() > 0.8 ? 1 : 0)));
+    rows.push(Array.from(Array(numCols), () => (Math.random() > 0.6 ? 1 : 0)));
   }
   return rows;
 };
 
 function App() {
-
   const [grid, setGrid] = useState(() => {
     return generateEmptyGrid();
   });
@@ -49,20 +48,16 @@ function App() {
   const countRef = useRef(interval);
   countRef.current = interval;
   const changeInterval = () => {
-
     if (interval === 1000) {
       setInterval(500);
       setText("2x");
-    }
-    else if (interval === 500) {
+    } else if (interval === 500) {
       setInterval(250);
       setText("4x");
-    }
-    else if (interval === 250) {
+    } else if (interval === 250) {
       setInterval(100);
       setText("10x");
-    }
-    else if (interval === 100) {
+    } else if (interval === 100) {
       setInterval(1000);
       setText("1x");
     }
@@ -86,6 +81,7 @@ function App() {
             });
             if (friends < 2 || friends > 3) {
               gridCopy[i][j] = 0;
+
             } else if (g[i][j] === 0 && friends === 3) {
               gridCopy[i][j] = 1;
             }
@@ -95,7 +91,6 @@ function App() {
     });
     setTimeout(startSimulation, countRef.current);
   }, []);
-
   return (
     <div>
       <Helmet>
@@ -137,7 +132,13 @@ function App() {
         <Button color="secondary" variant="contained" onClick={changeInterval}>
           {speedText}
         </Button>
-        <Button color="secondary" variant="contained" className="help" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">
+        <Button
+          color="secondary"
+          variant="contained"
+          className="help"
+          href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"
+          target="_blank"
+        >
           Help
         </Button>
       </div>
@@ -152,15 +153,15 @@ function App() {
           rows.map((col, j) => (
             <div
               onClick={() => {
-                const newGrid = produce(grid, (gridCopy) => {
-                  gridCopy[i][j] = gridCopy[i][j] ? 0 : 1;
-                });
-                setGrid(newGrid);
+                  const newGrid = produce(grid, (gridCopy) => {
+                    gridCopy[i][j] = gridCopy[i][j] ? 0 : 1;
+                  });
+                  setGrid(newGrid);
               }}
               style={{
                 width: 20,
                 height: 20,
-                backgroundColor: grid[i][j] ? "#f50057" : "#EFEFEF",
+                backgroundColor: grid[i][j] ? "#f50057" : "lightgray",
                 border: "solid 1px black",
               }}
             />

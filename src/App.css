@@ -1,8 +1,11 @@
 .buttons {
     display: inline-grid;
     grid-template-columns: 7vw 7vw 7vw 7vw 7vw;
-    gap: 30px;
+    gap: 40px;
 }
 .buttons .help {
-    margin-left: 55.21vw;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
+
